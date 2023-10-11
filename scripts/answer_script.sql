@@ -54,3 +54,11 @@ INNER JOIN rating
 	WHERE distributors.headquarters NOT LIKE '%CA%';
 -- 7. Which have a higher average rating, movies which are over two hours long or movies which are under two hours?
 
+SELECT
+	CASE WHEN length_in_min >120 THEN 'over_2_hrs'
+	ELSE 'under_2_hrs'
+	END AS category, ROUND(AVG(imdb_rating),1)
+FROM specs
+INNER JOIN rating
+ON specs.movie_id=rating.movie_id
+GROUP BY category;
